@@ -60,8 +60,8 @@ public class myGUI extends JFrame implements ActionListener {
 
     JTextArea testTextArea = new JTextArea(10,10);
 
-    JTextField startingXpField = new JTextField("Start XP here", 10);
-    JTextField endingXpField = new JTextField("Ending XP here",10);
+    JTextField startingXpField = new JTextField("XP before hunt here", 10);
+    JTextField endingXpField = new JTextField("XP after hunt here",10);
 
     JLabel vocationLabel = new JLabel("...", SwingConstants.CENTER); // NICE
     JLabel hpPerSecLabel = new JLabel("hp/s here"); // NICE
@@ -100,10 +100,9 @@ public class myGUI extends JFrame implements ActionListener {
     myGUI() throws IOException {
 
 
-
         frame.setLocation(5,10);
         frame.setPreferredSize(new Dimension(420,800));
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.add(groundPanel);
         groundPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // sätter border på main frame
         groundPanel.setBackground(Color.decode("#051122")); // dark blue border
@@ -277,7 +276,8 @@ public class myGUI extends JFrame implements ActionListener {
                     int xpGainedOnHunt = xpAfterHunt - xpBeforeHunt;
                     System.out.println("Total xp gained on hunt: "+xpGainedOnHunt);
 
-                    //minutes = 1;
+                    //minutes = 1; // TEST WITH MANUAL MINUTES INPUT
+
                     float hoursAsDouble = (float) minutes / 60;
                     System.out.println("Test with HOURS double: "+hoursAsDouble);
 
@@ -288,13 +288,12 @@ public class myGUI extends JFrame implements ActionListener {
 
                     xpCounterIsActive = false;
                 }
-
-
             }
         }
         else if(e.getSource() instanceof JCheckBox){
             if(e.getSource() == promotedCheckBox){
-                if(character.getVocationName().equalsIgnoreCase("Knight") || character.getVocationName().equalsIgnoreCase("Elite knight")){
+                if(character.getVocationName().equalsIgnoreCase("Knight") ||
+                        character.getVocationName().equalsIgnoreCase("Elite knight")){
                     if(promotedCheckBox.isSelected()){
                         hasPromotion = true;
                         character.setPromoted(true);
@@ -308,7 +307,8 @@ public class myGUI extends JFrame implements ActionListener {
                         System.out.println("Person does NOT have promotion...");
                     }
                 }
-                if(character.getVocationName().equalsIgnoreCase("Paladin") || character.getVocationName().equalsIgnoreCase("Royal paladin")){
+                if(character.getVocationName().equalsIgnoreCase("Paladin") ||
+                        character.getVocationName().equalsIgnoreCase("Royal paladin")){
                     if(promotedCheckBox.isSelected()){
                         hasPromotion = true;
                         character.setPromoted(true);
@@ -322,7 +322,8 @@ public class myGUI extends JFrame implements ActionListener {
                         System.out.println("Person does NOT have promotion...");
                     }
                 }
-                if(character.getVocationName().equalsIgnoreCase("Druid") || character.getVocationName().equalsIgnoreCase("Elder druid")){
+                if(character.getVocationName().equalsIgnoreCase("Druid") ||
+                        character.getVocationName().equalsIgnoreCase("Elder druid")){
                     if(promotedCheckBox.isSelected()){
                         hasPromotion = true;
                         character.setPromoted(true);
@@ -336,7 +337,8 @@ public class myGUI extends JFrame implements ActionListener {
                         System.out.println("Person does NOT have promotion...");
                     }
                 }
-                if(character.getVocationName().equalsIgnoreCase("Sorcerer") || character.getVocationName().equalsIgnoreCase("Master sorcerer")){
+                if(character.getVocationName().equalsIgnoreCase("Sorcerer") ||
+                        character.getVocationName().equalsIgnoreCase("Master sorcerer")){
                     if(promotedCheckBox.isSelected()){
                         hasPromotion = true;
                         character.setPromoted(true);
@@ -419,11 +421,12 @@ public class myGUI extends JFrame implements ActionListener {
         listOfCharacterButtons.add(paladinButton);
         listOfCharacterButtons.add(druidButton);
         listOfCharacterButtons.add(sorcererButton);
-        knightButton.setIcon(new ImageIcon("src/Pictures/carlin_sword.gif"));
 
-        paladinButton.setIcon(new ImageIcon("src/Pictures/Crossbow.gif"));
-        druidButton.setIcon(new ImageIcon("src/Pictures/Ultimate_Healing_Rune.gif"));
-        sorcererButton.setIcon(new ImageIcon("src/Pictures/Sudden_Death.gif"));
+        knightButton.setIcon(new ImageIcon(this.getClass().getResource("/Pictures/carlin_sword.gif")));
+        paladinButton.setIcon(new ImageIcon(this.getClass().getResource("/Pictures/Crossbow.gif")));
+        druidButton.setIcon(new ImageIcon(this.getClass().getResource("/Pictures/Ultimate_Healing_Rune.gif")));
+        sorcererButton.setIcon(new ImageIcon(this.getClass().getResource("/Pictures/Sudden_Death.gif")));
+
         //Lägger till alla vocation buttons samt actionListeners
         groundPanel.add(topTextPanel);
         topTextPanel.setBackground(Color.decode("#fff2db"));
