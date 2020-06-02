@@ -36,8 +36,10 @@ public class myGUI extends JFrame implements ActionListener {
     JPanel groundPanel = new JPanel();
     JPanel topVocPanel = new JPanel();
     JPanel topTextPanel = new JPanel();
-    JPanel characterDataPanel = new JPanel();
     JPanel vocationRESULTPanel = new JPanel();
+    JPanel characterDataPanel = new JPanel();
+
+    JPanel ABOVEcomparisonPanel = new JPanel();
     JPanel comparisonPanel = new JPanel();
 
     JPanel ABOVEexpCalculatorPanel = new JPanel();
@@ -73,15 +75,17 @@ public class myGUI extends JFrame implements ActionListener {
 
     JLabel leftItemManaToMake = new JLabel("Left manaToMake here");
     JLabel rightItemManaToMake = new JLabel("Right manaToMake here");
-    JLabel leftItemValue = new JLabel("Left itemValue here");
-    JLabel rightItemValue = new JLabel("Right itemValue here");
+    JLabel leftItemCharges = new JLabel("Left itemCharges here");
+    JLabel rightItemCharges = new JLabel("Right itemValue here");
     JLabel timeToMakeLeftItem = new JLabel("Left itemTimeToMake here");
     JLabel timeToMakeRightItem = new JLabel("Right itemTimeToMake here");
     JLabel leftBPtimeToMake = new JLabel("Left BP time to make here");
     JLabel rightBPtimeToMake = new JLabel("Right BP time to make here");
 
-    JLabel topXpGainedText = new JLabel("Xp gained per hour calculator");
+    JLabel topXpGainedText = new JLabel("▼ ▼ Xp gained per hour calculator ▼ ▼");
     JLabel xpGainedPerHourLabel = new JLabel("XP gain / hour calculated");
+
+    JLabel spellsComparisonText = new JLabel("▼ ▼ Compare conjuration spells (runes/arrows/bolts) ▼ ▼");
 
 
 
@@ -124,20 +128,29 @@ public class myGUI extends JFrame implements ActionListener {
         characterDataPanel.add(manaPerMINLabel);
         characterDataPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
 
+        groundPanel.add(ABOVEcomparisonPanel);
+        ABOVEcomparisonPanel.add(spellsComparisonText);
+        ABOVEcomparisonPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
+        ABOVEcomparisonPanel.setBackground(Color.WHITE);
+
+
 
         groundPanel.add(comparisonPanel);
         comparisonPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
         comparisonPanel.setLayout(new GridLayout(5,2));
+
         comparisonPanel.add(LeftDropDownList);
+
+
         LeftDropDownList.addActionListener(this);
         comparisonPanel.add(RightDropDownList);
         RightDropDownList.addActionListener(this);
 
-
         comparisonPanel.add(leftItemManaToMake);
+
         comparisonPanel.add(rightItemManaToMake);
-        comparisonPanel.add(leftItemValue);
-        comparisonPanel.add(rightItemValue);
+        comparisonPanel.add(leftItemCharges);
+        comparisonPanel.add(rightItemCharges);
         comparisonPanel.add(timeToMakeLeftItem);
         comparisonPanel.add(timeToMakeRightItem);
         comparisonPanel.add(leftBPtimeToMake);
@@ -152,9 +165,7 @@ public class myGUI extends JFrame implements ActionListener {
         expCalculatorPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 0, 2, Color.decode("#5a2800")));
         expCalculatorPanel.setBackground(Color.decode("#fff2db"));
         expCalculatorPanel.add(startingXpField);
-        //startingXpField.addActionListener(this);              // behövs nog ingen listener för dessa fält, endast knappen
         expCalculatorPanel.add(endingXpField);
-        //startingXpField.addActionListener(this);
         expCalculatorPanel.add(startStopXpCounterButton);
         startStopXpCounterButton.addActionListener(this);
 
@@ -162,10 +173,6 @@ public class myGUI extends JFrame implements ActionListener {
         UNDERCalculatorPanel.add(xpGainedPerHourLabel);
         UNDERCalculatorPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
         UNDERCalculatorPanel.setBackground(Color.decode("#fff2db"));
-
-
-
-
 
         groundPanel.add(testTextArea);
         testTextArea.setBorder(BorderFactory.createMatteBorder(0, 2, 3, 2, Color.decode("#5a2800")));
@@ -365,14 +372,14 @@ public class myGUI extends JFrame implements ActionListener {
             if(leftItemObject.getItemtype() == Item.ITEMTYPE.RUNE){
 
                 leftItemManaToMake.setText("Mana cost: "+leftItemObject.getManaToMake()+" // Full Bp: "+(leftItemObject.getManaToMake() * 20));
-                leftItemValue.setText("Charges per rune: x"+(leftItemObject.getAmountOrCharges()));
+                leftItemCharges.setText("Charges per rune: x"+(leftItemObject.getAmountOrCharges()));
                 timeToMakeLeftItem.setText(calculations.timeToMakeCalculation(character, leftItemObject, false));
                 leftBPtimeToMake.setText(calculations.timeToMakeCalculation(character, leftItemObject, true));
             }
             else if(leftItemObject.getItemtype() == Item.ITEMTYPE.DISTANCEAMMO){
 
                 leftItemManaToMake.setText("Mana cost: "+leftItemObject.getManaToMake()+" // Full Bp: "+calculations.distanceAmmoBpCalc(leftItemObject));
-                leftItemValue.setText("Amount made: x"+(leftItemObject.getAmountOrCharges()));
+                leftItemCharges.setText("Amount made: x"+(leftItemObject.getAmountOrCharges()));
                 timeToMakeLeftItem.setText(calculations.timeToMakeCalculation(character, leftItemObject, false));
                 leftBPtimeToMake.setText(calculations.timeToMakeCalculation(character, leftItemObject, true));
             }
@@ -390,14 +397,14 @@ public class myGUI extends JFrame implements ActionListener {
             if(rightItemObject.getItemtype() == Item.ITEMTYPE.RUNE){
 
                 rightItemManaToMake.setText("Mana cost: "+rightItemObject.getManaToMake()+" // Full Bp: "+(rightItemObject.getManaToMake() * 20));
-                rightItemValue.setText("Charges per rune: x"+(rightItemObject.getAmountOrCharges()));
+                rightItemCharges.setText("Charges per rune: x"+(rightItemObject.getAmountOrCharges()));
                 timeToMakeRightItem.setText(calculations.timeToMakeCalculation(character, rightItemObject, false));
                 rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
 
             }
             else if(rightItemObject.getItemtype() == Item.ITEMTYPE.DISTANCEAMMO){
                 rightItemManaToMake.setText("Mana cost: "+rightItemObject.getManaToMake()+" // Full Bp: "+calculations.distanceAmmoBpCalc(rightItemObject));
-                rightItemValue.setText("Amount made: x"+(rightItemObject.getAmountOrCharges()));
+                rightItemCharges.setText("Amount made: x"+(rightItemObject.getAmountOrCharges()));
                 timeToMakeRightItem.setText(calculations.timeToMakeCalculation(character, rightItemObject, false));
                 rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
             }

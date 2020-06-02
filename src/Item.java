@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Item {
@@ -9,16 +10,29 @@ public class Item {
         SHIELD,
         ARMOR,
     }
-    String name;
-    int sellValue;
-    ITEMTYPE itemtype;
-    int manaToMake;
-    int manaToMakeFullBP;
-    int amountOrCharges;
-    double timeToMake;
-    int damage;
-    int defense;
-    short arm;
+    enum LOCATION_WHERE_SOLD {
+        VENORE,
+        THAIS,
+        HARDEK_SW_THAIS,
+        KAZORDOON,
+        AB_DENDRIEL,
+        CARLIN,
+        EDRON,
+        DARSHIA,
+        FIBULA,
+        OUTLAW_CAMP,
+    }
+    private String name;
+    private int sellValue;
+    private ITEMTYPE itemtype;
+    private int manaToMake;
+    private int manaToMakeFullBP;
+    private int amountOrCharges;
+    private double timeToMake;
+    private int damage;
+    private int defense;
+    private short arm;
+    private ArrayList<Enum> listOfWhereItemIsSold = new ArrayList<>();
 
     // CONJURABLE THINGS SUCH AS RUNES
     Item(String conjurableItemName, ITEMTYPE itemtype, int manaToMake, int amountOrCharges){
@@ -35,6 +49,7 @@ public class Item {
         this.damage = damage;
         this.defense = defense;
     }
+    /*
     // SHIELDS CONSTRUCTOR
     Item(String shieldName, int sellValue, int defense){
         this.name = shieldName;
@@ -42,6 +57,8 @@ public class Item {
         this.sellValue = sellValue;
         this.defense = defense;
     }
+
+     */
     // ARMORS CONSTRUCTOR
     Item(String armorName, int sellValue, short arm){
         this.name = armorName;
@@ -59,6 +76,14 @@ public class Item {
     }
     Item(){
 
+    }
+
+    public ArrayList<Enum> getListOfWhereItemIsSold() {
+        return listOfWhereItemIsSold;
+    }
+
+    public void addToListOfWhereItemIsSold(Enum itemLocationToAdd) {
+        this.listOfWhereItemIsSold.add(itemLocationToAdd);
     }
 
     public int getArm() {
