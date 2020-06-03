@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TibiaCalc:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TibiaCalc_jar</output-path>
+    <root id="archive" name="TibiaCalc.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$USER_HOME$/Desktop/Tibia_New/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="TibiaCalc" />
+    </root>
+  </artifact>
+</component>

@@ -25,6 +25,7 @@ public class myGUI extends JFrame implements ActionListener {
     Database database = new Database();
     Item leftItemObject = new Item();
     Item rightItemObject = new Item();
+    Item sellableItemObject = new Item();
     public boolean xpCounterIsActive = false;
     Instant startOfHuntTime; ///          GÖR DESSA TILL TIME CLASS SEN
     Instant endOfHuntTime;
@@ -42,13 +43,15 @@ public class myGUI extends JFrame implements ActionListener {
     JPanel ABOVEcomparisonPanel = new JPanel();
     JPanel comparisonPanel = new JPanel();
 
+    JPanel ABOVEsellableItemsPanel = new JPanel();
+    JPanel sellableItemsPanel = new JPanel();
+    JPanel UNDERsellableItemsPanel = new JPanel();
+
     JPanel ABOVEexpCalculatorPanel = new JPanel();
     JPanel expCalculatorPanel = new JPanel();
     JPanel UNDERCalculatorPanel = new JPanel();
 
-
-
-    ArrayList<JButton> listOfCharacterButtons = new ArrayList<>();
+    ArrayList<JButton> listOfVocationButtons = new ArrayList<>();
 
     JButton knightButton = new JButton();
     JButton paladinButton = new JButton();
@@ -82,27 +85,32 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel leftBPtimeToMake = new JLabel("Left BP time to make here");
     JLabel rightBPtimeToMake = new JLabel("Right BP time to make here");
 
+    JLabel textAboveSellableItems = new JLabel("▼ ▼ List of sellable items(best price) ▼ ▼");
+    JLabel cashIcon = new JLabel(new ImageIcon(this.getClass().getResource("/Pictures/gold_coin.gif")));
+    JLabel cashIcon2 = new JLabel(new ImageIcon(this.getClass().getResource("/Pictures/gold_coin.gif")));
+    JLabel valueOfSellableItem = new JLabel("Item value: ");
+    JLabel soldLocationOfItem = new JLabel("Item sold in: ");
+
+
     JLabel topXpGainedText = new JLabel("▼ ▼ Xp gained per hour calculator ▼ ▼");
     JLabel xpGainedPerHourLabel = new JLabel("XP gain / hour calculated");
 
     JLabel spellsComparisonText = new JLabel("▼ ▼ Compare conjuration spells (runes/arrows/bolts) ▼ ▼");
 
+    // Lägger till alla items namn i listan istället för objekt
+    // behövdes för annars blev de helt cp
+    String[] conjureableItemList = database.getItemListNamesAsARRAY("conjureable");
+    String[] sellableItemList = database.getItemListNamesAsARRAY("sellable");
 
+    JComboBox LeftDropDownList = new JComboBox(conjureableItemList);
+    JComboBox RightDropDownList = new JComboBox(conjureableItemList);
 
-
-
-
-    String[] s1 = database.getItemListNamesAsARRAY(); // Lägger till alla items namn i listan istället för objekt
-                                                        // behövdes för annars blev de helt cp
-    JComboBox LeftDropDownList = new JComboBox(s1);
-    JComboBox RightDropDownList = new JComboBox(s1);
-
+    JComboBox sellableItemsDropDownList = new JComboBox(sellableItemList);
 
     JLabel topText = new JLabel("Enter information below ");
     JLabel emptyLabel = new JLabel("");
 
     myGUI() throws IOException {
-
 
         frame.setLocation(5,10);
         frame.setPreferredSize(new Dimension(420,800));
@@ -133,17 +141,16 @@ public class myGUI extends JFrame implements ActionListener {
         ABOVEcomparisonPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
         ABOVEcomparisonPanel.setBackground(Color.WHITE);
 
-
-
         groundPanel.add(comparisonPanel);
         comparisonPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
         comparisonPanel.setLayout(new GridLayout(5,2));
 
+
         comparisonPanel.add(LeftDropDownList);
-
-
+        LeftDropDownList.setBackground(Color.decode("#d6dbe0"));
         LeftDropDownList.addActionListener(this);
         comparisonPanel.add(RightDropDownList);
+        RightDropDownList.setBackground(Color.decode("#d6dbe0"));
         RightDropDownList.addActionListener(this);
 
         comparisonPanel.add(leftItemManaToMake);
@@ -155,6 +162,27 @@ public class myGUI extends JFrame implements ActionListener {
         comparisonPanel.add(timeToMakeRightItem);
         comparisonPanel.add(leftBPtimeToMake);
         comparisonPanel.add(rightBPtimeToMake);
+        //////////////
+        groundPanel.add(ABOVEsellableItemsPanel);
+        ABOVEsellableItemsPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.decode("#5a2800")));
+        ABOVEsellableItemsPanel.setBackground(Color.WHITE);
+        ABOVEsellableItemsPanel.add(textAboveSellableItems);
+
+        groundPanel.add(sellableItemsPanel);
+        sellableItemsPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 0, 2, Color.decode("#5a2800")));
+        sellableItemsPanel.add(cashIcon);
+        sellableItemsPanel.add(sellableItemsDropDownList);
+        sellableItemsDropDownList.addActionListener(this); // ADD ACTIONLISTENER DOWN
+        sellableItemsPanel.add(cashIcon2);
+
+        groundPanel.add(UNDERsellableItemsPanel);
+        UNDERsellableItemsPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
+        UNDERsellableItemsPanel.add(valueOfSellableItem);
+        UNDERsellableItemsPanel.add(soldLocationOfItem);
+        //////////////
+
+
+
 
         groundPanel.add(ABOVEexpCalculatorPanel);
         ABOVEexpCalculatorPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.decode("#5a2800")));
@@ -365,7 +393,7 @@ public class myGUI extends JFrame implements ActionListener {
             //// LEFT OBJECT RESULT HERE //////// LEFT OBJECT RESULT HERE //////// LEFT OBJECT RESULT HERE ////
             String itemNameFromDropList = LeftDropDownList.getSelectedItem().toString();
 
-            leftItemObject = database.returnItem(itemNameFromDropList);
+            leftItemObject = database.returnItem(itemNameFromDropList, "conjureable");
 
             //leftItemName.setText(leftItemObject.getName());
 
@@ -391,7 +419,7 @@ public class myGUI extends JFrame implements ActionListener {
             //// RIGHT OBJECT RESULT HERE //////// RIGHT OBJECT RESULT HERE //////// RIGHT OBJECT RESULT HERE ////
             String itemNameFromDropList = RightDropDownList.getSelectedItem().toString();
 
-            rightItemObject = database.returnItem(itemNameFromDropList);
+            rightItemObject = database.returnItem(itemNameFromDropList, "conjureable");
 
 
             if(rightItemObject.getItemtype() == Item.ITEMTYPE.RUNE){
@@ -409,6 +437,15 @@ public class myGUI extends JFrame implements ActionListener {
                 rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
             }
         }
+        else if(e.getSource() instanceof JComboBox && e.getSource() == sellableItemsDropDownList){
+            /// SELLABLE ITEMS ACTIONLISTENER HERE
+            String sellableItemNameFromDropList = sellableItemsDropDownList.getSelectedItem().toString();
+
+            sellableItemObject = database.returnItem(sellableItemNameFromDropList, "sellable");
+            valueOfSellableItem.setText("Max value: "+ sellableItemObject.getSellValue() + " gp");
+            soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold());
+        }
+
 
     }
     public void changeButtonBorderOnPress(JButton buttonToChange){
@@ -416,7 +453,7 @@ public class myGUI extends JFrame implements ActionListener {
         buttonToChange.setBorder(BorderFactory.createBevelBorder(1));
         //buttonToChange.setBackground(Color.decode("#5a2800"));
         Border emptyBorder = BorderFactory.createEmptyBorder();
-        for(JButton button : listOfCharacterButtons){
+        for(JButton button : listOfVocationButtons){
             if(button != buttonToChange){
                 button.setBorder(createRaisedBevelBorder());
             }
@@ -424,10 +461,10 @@ public class myGUI extends JFrame implements ActionListener {
     }
 
     public void addAllTopStuff(){
-        listOfCharacterButtons.add(knightButton);
-        listOfCharacterButtons.add(paladinButton);
-        listOfCharacterButtons.add(druidButton);
-        listOfCharacterButtons.add(sorcererButton);
+        listOfVocationButtons.add(knightButton);
+        listOfVocationButtons.add(paladinButton);
+        listOfVocationButtons.add(druidButton);
+        listOfVocationButtons.add(sorcererButton);
 
         knightButton.setIcon(new ImageIcon(this.getClass().getResource("/Pictures/carlin_sword.gif")));
         paladinButton.setIcon(new ImageIcon(this.getClass().getResource("/Pictures/Crossbow.gif")));
@@ -450,7 +487,7 @@ public class myGUI extends JFrame implements ActionListener {
         topVocPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 3, 2, Color.decode("#5a2800")));
         topVocPanel.setBackground(Color.decode("#fff2db")); // Ljusbrun bakgrund
         topVocPanel.setLayout(new GridLayout(2,4));
-        for(var vocButton : listOfCharacterButtons){
+        for(var vocButton : listOfVocationButtons){
             vocButton.setBorder(createRaisedBevelBorder());
             vocButton.setContentAreaFilled(false);
             vocButton.setFocusPainted(false);

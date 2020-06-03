@@ -49,7 +49,7 @@ public class Item {
         this.damage = damage;
         this.defense = defense;
     }
-    /*
+
     // SHIELDS CONSTRUCTOR
     Item(String shieldName, int sellValue, int defense){
         this.name = shieldName;
@@ -58,7 +58,7 @@ public class Item {
         this.defense = defense;
     }
 
-     */
+
     // ARMORS CONSTRUCTOR
     Item(String armorName, int sellValue, short arm){
         this.name = armorName;
