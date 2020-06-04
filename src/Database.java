@@ -20,7 +20,7 @@ public class Database {
         Collections.sort(sellableItemsArrayList, Comparator.comparing(Item::getName));
 
         for(Item sellableItem : sellableItemsArrayList){
-            System.out.println("Item to show: "+sellableItem.getName());
+            System.out.println("Item name: "+sellableItem.getName()+", Item sell location/s: "+sellableItem.getListOfWhereItemIsSold());
         }
     }
 
@@ -67,14 +67,15 @@ public class Database {
         Item chainHelmet = new Item("Chain Helmet", 17, (short) 2);
         chainHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
         chainHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
-        chainHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        chainHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
+        chainHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(chainHelmet);
 
         Item brassHelmet = new Item("Brass Helmet", 30, (short) 3);
         brassHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.HARDEK_SW_THAIS);
         brassHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
         brassHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
-        brassHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        brassHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(brassHelmet);
 
         Item vikingHelmet = new Item("Viking Helmet", 66, (short) 4);
@@ -83,7 +84,7 @@ public class Database {
         vikingHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
         vikingHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
         vikingHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
-        vikingHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        vikingHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(vikingHelmet);
 
         Item ironHelmet = new Item("Iron Helmet", 190, (short) 5);
@@ -93,25 +94,29 @@ public class Database {
         Item steelHelmet = new Item("Steel helmet", 293, (short) 6);
         steelHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
         steelHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
-        steelHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        steelHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
+        steelHelmet.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(steelHelmet);
     }
     public void AddARMORSAndSoldLocations() {
         Item leatherArmor = new Item("Leather Armor", 12, (short) 4);
         leatherArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         leatherArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        leatherArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(leatherArmor);
 
         Item chainArmor = new Item("Chain Armor", 70, (short) 6);
         chainArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         chainArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         chainArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        chainArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(chainArmor);
 
         Item brassArmor = new Item("Brass Armor", 150, (short) 8);
         brassArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         brassArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         brassArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        brassArmor.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(brassArmor);
 
         Item scaleArmor = new Item("Scale Armor", 75, (short) 9);
@@ -128,6 +133,7 @@ public class Database {
         Item chainLegs = new Item("Chain Legs", 25, (short) 3);
         chainLegs.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         chainLegs.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
+        chainLegs.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(chainLegs);
 
         Item brassLegs = new Item("Brass Legs", 49, (short) 5);
@@ -148,13 +154,13 @@ public class Database {
         brassShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.HARDEK_SW_THAIS);
         brassShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
         brassShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
-        brassShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        brassShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(brassShield);
 
         Item plateShield = new Item("Plate Shield", 45, 17);
         plateShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
         plateShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
-        plateShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        plateShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(plateShield);
 
         Item steelShield = new Item("Steel Shield", 80, 21);
@@ -168,6 +174,7 @@ public class Database {
         battleShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         battleShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         battleShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        battleShield.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(battleShield);
 
         Item dwarvenShield = new Item("Dwarven Shield", 100, 26);
@@ -180,17 +187,19 @@ public class Database {
         mace.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         mace.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.FIBULA);
         mace.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        mace.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(mace);
 
         Item battleHammer = new Item("Battle Hammer", 120, 24, 14);
         battleHammer.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         battleHammer.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        battleHammer.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(battleHammer);
 
         Item morningStar = new Item("Morning Star", 100, 25, 11);
         morningStar.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
         morningStar.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
-        morningStar.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        morningStar.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(morningStar);
 
         Item clericalMace = new Item("Clerical Mace", 170, 28, 15);
@@ -202,12 +211,14 @@ public class Database {
         sabre.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         sabre.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         sabre.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        sabre.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(sabre);
 
         Item sword = new Item("Sword", 25, 14, 12);
         sword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         sword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         sword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        sword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(sword);
 
         Item longSword = new Item("Longsword", 51, 17, 14);
@@ -219,7 +230,7 @@ public class Database {
         Item carlinSword = new Item("Carlin Sword", 118, 15, 13);
         carlinSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
         carlinSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.KAZORDOON);
-        carlinSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        carlinSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(carlinSword);
 
         Item spikeSword = new Item("Spikesword", 240, 24, 21);
@@ -230,6 +241,7 @@ public class Database {
         twoHandedSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         twoHandedSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.AB_DENDRIEL);
         twoHandedSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        twoHandedSword.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(twoHandedSword);
 
         // AXES
@@ -244,16 +256,18 @@ public class Database {
         Item battleAxe = new Item("Battle Axe", 80, 25, 10);
         battleAxe.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         battleAxe.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        battleAxe.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(battleAxe);
 
         Item halberd = new Item("Halberd", 400, 35, 14);
         halberd.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.THAIS);
         halberd.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.EDRON);
+        halberd.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.VENORE);
         sellableItemsArrayList.add(halberd);
 
         Item doubleAxe = new Item("Double Axe", 260, 35, 12);
         doubleAxe.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.CARLIN);
-        doubleAxe.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARSHIA);
+        doubleAxe.addToListOfWhereItemIsSold(Item.LOCATION_WHERE_SOLD.DARASHIA);
         sellableItemsArrayList.add(doubleAxe);
 
         // BOW & CROSSBOW

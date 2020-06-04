@@ -162,6 +162,8 @@ public class myGUI extends JFrame implements ActionListener {
         comparisonPanel.add(timeToMakeRightItem);
         comparisonPanel.add(leftBPtimeToMake);
         comparisonPanel.add(rightBPtimeToMake);
+
+
         //////////////
         groundPanel.add(ABOVEsellableItemsPanel);
         ABOVEsellableItemsPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.decode("#5a2800")));
@@ -177,6 +179,7 @@ public class myGUI extends JFrame implements ActionListener {
 
         groundPanel.add(UNDERsellableItemsPanel);
         UNDERsellableItemsPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
+        UNDERsellableItemsPanel.setLayout(new GridLayout(3,4));
         UNDERsellableItemsPanel.add(valueOfSellableItem);
         UNDERsellableItemsPanel.add(soldLocationOfItem);
         //////////////
@@ -443,7 +446,9 @@ public class myGUI extends JFrame implements ActionListener {
 
             sellableItemObject = database.returnItem(sellableItemNameFromDropList, "sellable");
             valueOfSellableItem.setText("Max value: "+ sellableItemObject.getSellValue() + " gp");
-            soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold());
+            //soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold());
+            soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold_AsString());
+
         }
 
 
