@@ -1,9 +1,12 @@
+import org.xml.sax.SAXException;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,7 +113,7 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel topText = new JLabel("Enter information below ");
     JLabel emptyLabel = new JLabel("");
 
-    myGUI() throws IOException {
+    myGUI() throws IOException, ParserConfigurationException, SAXException {
 
         frame.setLocation(5,10);
         frame.setPreferredSize(new Dimension(420,800));
