@@ -7,10 +7,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,7 +33,9 @@ public class Database {
         AddSHIELDSAndSoldLocations();
         AddWEAPONSAndSoldLocations();
 
-        ReadMonsterXMLfile();
+        ReadMonsterXMLfiles();
+        ReadItemXMLfile();
+
 
         Collections.sort(conjureableItemsArrayList, Comparator.comparing(Item::getName));
         Collections.sort(sellableItemsArrayList, Comparator.comparing(Item::getName));
@@ -301,14 +300,12 @@ public class Database {
         sellableItemsArrayList.add(crossbow);
     }
 
-    public void ReadMonsterXMLfile(){
+    public void ReadMonsterXMLfiles(){
         try{
             File dir = new File("src\\MonstersXML");
             if (dir.exists() && dir.isDirectory()) {
                 File [] files = dir.listFiles((d, name) -> name.endsWith(".xml"));
                 if (files != null) {
-                    int counter = 1;
-                    System.out.println("---------------------------------");
                     for (File file: files) {
 
                         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -326,89 +323,93 @@ public class Database {
                         MonsterXML monsterXML = new MonsterXML();
 
                         monsterXML.setName(nodes.item(2).getTextContent());
-                        System.out.println("Name: "+monsterXML.getName());
                         monsterXML.setHealth(nodes.item(3).getTextContent());
-                        System.out.println("Health: "+monsterXML.getHealth());
                         monsterXML.setExperience(nodes.item(0).getTextContent());
-                        System.out.println("Experience: "+monsterXML.getExperience());
                         monsterXML.setManaToSummon(nodes.item(1).getTextContent());
-                        System.out.println("Summon cost: "+monsterXML.getManaToSummon());
-
 
                         // MONSTER LOOT (ID) AND MONSTER LOOT (DROPCHANCE%)
-                        MonsterLootXML monsterLootXML = null;
-                        //---------------------------------------------------------------
-                        // DETTA ÄR SÄTTET JAG ALLTID GJORT 1.
-                        /*
-                        expr = xpath.compile("/monster/loot/item/@id"); // LOOT ID NUMBER
-                        result = expr.evaluate(doc, XPathConstants.NODESET);
-                        nodes = (NodeList) result;
-                        for (int i = 0; i < nodes.getLength(); i++) {
-                            monsterLootXML = new MonsterLootXML();              // NEW loot object for every iteration
-                            monsterLootXML.setId(nodes.item(i).getTextContent());
-                            monsterXML.addLootableItems(monsterLootXML);
-                            System.out.println(i+". Loot id: "+monsterLootXML.getId());
-                        }
-                         */
-                        //---------------------------------------------------------------
-                        // DETTA ÄR NYA SÄTTET JAG SKA TESTA TA ALL LOOT INKL BAGS PÅ 2.
                         expr = xpath.compile("/monster/loot//item"); // LOOT ID NUMBER
                         result = expr.evaluate(doc, XPathConstants.NODESET);
                         nodes = (NodeList) result;
+                        MonsterLootXML monsterLootXML = null;
                         for (int i = 0; i < nodes.getLength(); i++) {
                             Node testNode = nodes.item(i);
+                            if(testNode.getNodeType() == Node.ELEMENT_NODE){
+                                Element element = (Element) testNode;
+                                monsterLootXML = new MonsterLootXML();              // NEW loot object for every iteration
+                                monsterLootXML.setId(element.getAttribute("id"));
+                                monsterLootXML.setLootChance(element.getAttribute("chance"));
+                                monsterLootXML.setLootChance(Calculations.correctDropChanceNumber(monsterLootXML.getLootChance()));
 
-                            System.out.println("\nCurrent Element :" + testNode.getNodeName());
-                            /*monsterLootXML = new MonsterLootXML();              // NEW loot object for every iteration
-                            monsterLootXML.setId(nodes.item(i).getTextContent());
-                            monsterXML.addLootableItems(monsterLootXML);
-                            System.out.println(i+". Loot id: "+monsterLootXML.getId());
-
-                             */
+                                if(element.hasAttribute("countmax")){
+                                    monsterLootXML.setAmount(element.getAttribute("countmax"));
+                                }
+                                else{
+                                    monsterLootXML.setAmount("1");
+                                }
+                                monsterXML.addLootableItems(monsterLootXML);
+                            }
                         }
-
-                        expr = xpath.compile("/monster/loot/item/@chance"); // LOOT % DROP CHANCE
-                        result = expr.evaluate(doc, XPathConstants.NODESET);
-                        nodes = (NodeList) result;
-                        int i = 0;
-                        for(MonsterLootXML loot : monsterXML.getLootableItems()){
-
-                            String percentage = nodes.item(i).getNodeValue();
-                            loot.setLootChance(percentage);
-                            i++;
-                        }
-                        /*for (int i = 0; i < nodes.getLength(); i++) {
-                            String percentage = nodes.item(i).getNodeValue();
-
-                            monsterXML.
-                            System.out.println("Lootchance after added percentage: "+monsterLootXML.getLootChance());
-                            //monsterLootXML = null;
-                        }
-
-                         */
-
-                        monstersArrayList.add(monsterXML); // adding monster to monsterlist
-                        System.out.println("---------------------------------");
-                    }
-                    System.out.println("AFTER ALL IS DONE WITH XML THIS IS THE DATA");
-                    for(MonsterXML monsterXML : monstersArrayList){
-                        System.out.println("Name: "+monsterXML.getName());
-                        System.out.println("Health: "+monsterXML.getHealth());
-                        System.out.println("Experience: "+monsterXML.getExperience());
-                        System.out.println("Summon cost: "+monsterXML.getManaToSummon());
-                        System.out.println("Lootable items in monster below");
-                        for(MonsterLootXML monsterLootXML : monsterXML.getLootableItems()){
-                            System.out.println("Item Id: "+monsterLootXML.getId()+", Drop chance: "+monsterLootXML.getLootChance());
-                        }
-
-                        System.out.println("---------------------------------");
-
+                        monstersArrayList.add(monsterXML);
                     }
                 }
             }
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public void ReadItemXMLfile(){
+        try{
+            String fileName = "src\\ItemsXML\\items.xml";
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true); // never forget this!
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(fileName);
+
+            XPathFactory xpathfactory = XPathFactory.newInstance();
+            XPath xpath = xpathfactory.newXPath();
+
+            XPathExpression expr = xpath.compile("/items/item"); // LOOT ID NUMBER
+            Object result = expr.evaluate(doc, XPathConstants.NODESET);
+            NodeList nodes = (NodeList) result;
+
+            for (int i = 0; i < nodes.getLength(); i++) { // LENGTH ÄR BARA 1 HÄR wtf??
+                Node testNode = nodes.item(i);
+                if(testNode.getNodeType() == Node.ELEMENT_NODE){
+                    Element element = (Element) testNode;
+                    String idFromItemXml = "";
+                    String itemNameFromItemXml = "";
+                    idFromItemXml = element.getAttribute("id");
+                    itemNameFromItemXml = element.getAttribute("name");
+                    for(MonsterXML monster : monstersArrayList){
+                        for(MonsterLootXML loot : monster.getLootableItems()){
+                            if(loot.getId().equals(idFromItemXml)){
+                                loot.setName(itemNameFromItemXml);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (ParserConfigurationException parserConfigurationException) {
+            parserConfigurationException.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        } catch (XPathExpressionException xPathExpressionException) {
+            xPathExpressionException.printStackTrace();
+        } catch (SAXException saxException) {
+            saxException.printStackTrace();
+        }
+        for(MonsterXML monster : monstersArrayList){
+            System.out.println("Monster name: "+monster.getName());
+            System.out.println("Health: "+monster.getHealth());
+            System.out.println("Experience: "+monster.getExperience());
+            System.out.println("Summon cost: "+monster.getManaToSummon());
+            for(MonsterLootXML loot : monster.getLootableItems()){
+                System.out.println("Loot id: "+loot.getId()+", Loot name: "+loot.getName()+", Amount dropped: "+loot.getAmount()+", Drop chance in %: "+loot.getLootChance());
+            }
+            System.out.println("---------------------------------");
         }
     }
 
