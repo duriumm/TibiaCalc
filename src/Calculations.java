@@ -17,6 +17,25 @@ public class Calculations {
         return "";
     }
 
+    public static String correctDropChanceNumber(String dropChanceNumberToInput){
+        String returnString = "";
+        if(dropChanceNumberToInput.length() == 6){
+            returnString = "100";
+        }
+        else if(dropChanceNumberToInput.length() == 5){
+            returnString = dropChanceNumberToInput.charAt(0) + "0";
+        }
+        else if(dropChanceNumberToInput.length() == 4){
+            returnString = String.valueOf(dropChanceNumberToInput.charAt(0));
+        }
+        else if(dropChanceNumberToInput.length() == 3){
+            returnString = "0." + dropChanceNumberToInput.charAt(0);
+        }
+        else if(dropChanceNumberToInput.length() == 2){
+            returnString = "VAFAN EREHÄR";
+        }
+        return returnString;
+    }
     public void calculateRegeneration(Character characterInput){
         if(characterInput.getPromotionStatus() == true){
             if(characterInput.getVocationName().equalsIgnoreCase("Elite knight")){

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Item {
@@ -9,16 +10,29 @@ public class Item {
         SHIELD,
         ARMOR,
     }
-    String name;
-    int sellValue;
-    ITEMTYPE itemtype;
-    int manaToMake;
-    int manaToMakeFullBP;
-    int amountOrCharges;
-    double timeToMake;
-    int damage;
-    int defense;
-    short arm;
+    enum LOCATION_WHERE_SOLD {
+        VENORE,
+        THAIS,
+        HARDEK_SW_THAIS,
+        KAZORDOON,
+        AB_DENDRIEL,
+        CARLIN,
+        EDRON,
+        DARASHIA,
+        FIBULA,
+        OUTLAW_CAMP,
+    }
+    private String name;
+    private int sellValue;
+    private ITEMTYPE itemtype;
+    private int manaToMake;
+    private int manaToMakeFullBP;
+    private int amountOrCharges;
+    private double timeToMake;
+    private int damage;
+    private int defense;
+    private short arm;
+    private ArrayList<Enum> listOfWhereItemIsSold = new ArrayList<>();
 
     // CONJURABLE THINGS SUCH AS RUNES
     Item(String conjurableItemName, ITEMTYPE itemtype, int manaToMake, int amountOrCharges){
@@ -35,6 +49,7 @@ public class Item {
         this.damage = damage;
         this.defense = defense;
     }
+
     // SHIELDS CONSTRUCTOR
     Item(String shieldName, int sellValue, int defense){
         this.name = shieldName;
@@ -42,6 +57,8 @@ public class Item {
         this.sellValue = sellValue;
         this.defense = defense;
     }
+
+
     // ARMORS CONSTRUCTOR
     Item(String armorName, int sellValue, short arm){
         this.name = armorName;
@@ -59,6 +76,95 @@ public class Item {
     }
     Item(){
 
+    }
+
+    public String getListOfWhereItemIsSold_AsString() {
+        String returnString = "";
+        int counter = 0;
+        for(Enum item : listOfWhereItemIsSold){
+            if(item == LOCATION_WHERE_SOLD.THAIS && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Thais, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.THAIS && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Thais.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.HARDEK_SW_THAIS && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Hardek SW Thais, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.HARDEK_SW_THAIS && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Hardek SW Thais.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.CARLIN && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Carlin, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.CARLIN && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Carlin.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.OUTLAW_CAMP && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Outlaw Camp, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.OUTLAW_CAMP && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Outlaw Camp.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.VENORE && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Venore, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.VENORE && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Venore.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.AB_DENDRIEL && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Ab'Dendriel, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.AB_DENDRIEL && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Ab'Dendriel.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.EDRON && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Edron, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.EDRON && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Edron.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.DARASHIA && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Darashia, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.DARASHIA && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Darashia.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.FIBULA && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Fibula, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.FIBULA  && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Fibula.";
+            }
+
+            if(item == LOCATION_WHERE_SOLD.KAZORDOON && counter != listOfWhereItemIsSold.size() - 1){
+                returnString += "Kazordoon, ";
+            }
+            else if(item == LOCATION_WHERE_SOLD.KAZORDOON  && counter == listOfWhereItemIsSold.size() - 1){
+                returnString += "Kazordoon.";
+            }
+            counter++;
+        }
+        return returnString;
+    }
+
+
+
+
+    public ArrayList<Enum> getListOfWhereItemIsSold() {
+        return listOfWhereItemIsSold;
+    }
+
+    public void addToListOfWhereItemIsSold(Enum itemLocationToAdd) {
+        this.listOfWhereItemIsSold.add(itemLocationToAdd);
     }
 
     public int getArm() {
