@@ -1,8 +1,8 @@
 public class MonsterLootXML {
-    String name;
-    String lootChance;
-    String id;
-    String amount;
+    private String name;
+    private String lootChance;
+    private String id;
+    private String amount;
 
     public String getAmount() {
         return amount;

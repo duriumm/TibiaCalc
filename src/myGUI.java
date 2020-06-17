@@ -29,6 +29,7 @@ public class myGUI extends JFrame implements ActionListener {
     Item leftItemObject = new Item();
     Item rightItemObject = new Item();
     Item sellableItemObject = new Item();
+    MonsterXML monsterXMLObject = new MonsterXML();
     public boolean xpCounterIsActive = false;
     Instant startOfHuntTime; ///          GÖR DESSA TILL TIME CLASS SEN
     Instant endOfHuntTime;
@@ -54,6 +55,11 @@ public class myGUI extends JFrame implements ActionListener {
     JPanel expCalculatorPanel = new JPanel();
     JPanel UNDERCalculatorPanel = new JPanel();
 
+    JPanel ABOVEmonsterPanel = new JPanel();
+    JPanel monsterDropDownPanel = new JPanel();
+    JPanel monsterDataPanel = new JPanel();
+    JPanel monsterLootPanel = new JPanel();
+
     ArrayList<JButton> listOfVocationButtons = new ArrayList<>();
 
     JButton knightButton = new JButton();
@@ -77,7 +83,7 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel manaPerSecLabel = new JLabel("mana/sec here"); // NICE
     JLabel manaPerMINLabel = new JLabel("mana/min here"); // NICE
 
-
+    JLabel spellsComparisonText = new JLabel("▼ ▼ Compare conjuration spells (runes/arrows/bolts) ▼ ▼");
 
     JLabel leftItemManaToMake = new JLabel("Left manaToMake here");
     JLabel rightItemManaToMake = new JLabel("Right manaToMake here");
@@ -98,17 +104,31 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel topXpGainedText = new JLabel("▼ ▼ Xp gained per hour calculator ▼ ▼");
     JLabel xpGainedPerHourLabel = new JLabel("XP gain / hour calculated");
 
-    JLabel spellsComparisonText = new JLabel("▼ ▼ Compare conjuration spells (runes/arrows/bolts) ▼ ▼");
+    JLabel textAboveMonsterPanel = new JLabel("▼ ▼ Monsters panel ▼ ▼");
+    JLabel monsterIcon = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Minotaur_Guard.gif")));
+    JLabel monsterIcon2 = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Orc_Leader.gif")));
+
+    //JLabel monsterName = new JLabel("Monster name here");
+    JLabel monsterHp = new JLabel("Monster Hp here");
+    JLabel monsterXp = new JLabel("Monster XP here");
+    JLabel monsterSummonCost = new JLabel("Monster summon cost here");
+    JLabel monsterLoot = new JLabel("Monster loot here");
+
+
 
     // Lägger till alla items namn i listan istället för objekt
     // behövdes för annars blev de helt cp
     String[] conjureableItemList = database.getItemListNamesAsARRAY("conjureable");
     String[] sellableItemList = database.getItemListNamesAsARRAY("sellable");
+    String[] monsterItemList = database.getItemListNamesAsARRAY("monster");
+
 
     JComboBox LeftDropDownList = new JComboBox(conjureableItemList);
     JComboBox RightDropDownList = new JComboBox(conjureableItemList);
 
     JComboBox sellableItemsDropDownList = new JComboBox(sellableItemList);
+
+    JComboBox monsterDropDownList = new JComboBox(monsterItemList);
 
     JLabel topText = new JLabel("Enter information below ");
     JLabel emptyLabel = new JLabel("");
@@ -207,6 +227,36 @@ public class myGUI extends JFrame implements ActionListener {
         UNDERCalculatorPanel.add(xpGainedPerHourLabel);
         UNDERCalculatorPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
         UNDERCalculatorPanel.setBackground(Color.decode("#fff2db"));
+
+        ///////// CODING HERE
+        groundPanel.add(ABOVEmonsterPanel);
+        ABOVEmonsterPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.decode("#5a2800")));
+        ABOVEmonsterPanel.setBackground(Color.WHITE);
+        ABOVEmonsterPanel.add(textAboveMonsterPanel);
+
+        groundPanel.add(monsterDropDownPanel);
+        monsterDropDownPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 0, 2, Color.decode("#5a2800")));
+        monsterDropDownPanel.setBackground(Color.decode("#fff2db"));
+        monsterDropDownPanel.setLayout(new FlowLayout());
+        monsterDropDownPanel.add(monsterIcon);
+        monsterDropDownPanel.add(monsterDropDownList);
+        monsterDropDownList.addActionListener(this);
+        monsterDropDownPanel.add(monsterIcon2);
+
+        groundPanel.add(monsterDataPanel);
+        monsterDataPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, Color.decode("#5a2800")));
+        monsterDataPanel.setBackground(Color.decode("#fff2db"));
+        //monsterDataPanel.add(monsterName); // DROPDOWN SHOWS NAME
+        monsterDataPanel.add(monsterHp);
+        monsterDataPanel.add(monsterXp);
+        monsterDataPanel.add(monsterSummonCost);
+
+        groundPanel.add(monsterLootPanel);
+        monsterLootPanel.setLayout(new FlowLayout());
+        monsterLootPanel.add(monsterLoot);
+
+
+        ///////// CODE BLOCK STOP
 
         groundPanel.add(testTextArea);
         testTextArea.setBorder(BorderFactory.createMatteBorder(0, 2, 3, 2, Color.decode("#5a2800")));
@@ -395,7 +445,8 @@ public class myGUI extends JFrame implements ActionListener {
                 }
             }
         }
-        else if(e.getSource() instanceof JComboBox && e.getSource() == LeftDropDownList && character.getVocationName() != null){
+        else if(e.getSource() instanceof JComboBox){
+            if(e.getSource() == LeftDropDownList && character.getVocationName() != null){
             //// LEFT OBJECT RESULT HERE //////// LEFT OBJECT RESULT HERE //////// LEFT OBJECT RESULT HERE ////
             String itemNameFromDropList = LeftDropDownList.getSelectedItem().toString();
 
@@ -417,44 +468,58 @@ public class myGUI extends JFrame implements ActionListener {
                 timeToMakeLeftItem.setText(calculations.timeToMakeCalculation(character, leftItemObject, false));
                 leftBPtimeToMake.setText(calculations.timeToMakeCalculation(character, leftItemObject, true));
             }
-
-
-
         }
-        else if(e.getSource() instanceof JComboBox && e.getSource() == RightDropDownList && character.getVocationName() != null){
-            //// RIGHT OBJECT RESULT HERE //////// RIGHT OBJECT RESULT HERE //////// RIGHT OBJECT RESULT HERE ////
-            String itemNameFromDropList = RightDropDownList.getSelectedItem().toString();
+            else if(e.getSource() == RightDropDownList && character.getVocationName() != null){
+                //// RIGHT OBJECT RESULT HERE //////// RIGHT OBJECT RESULT HERE //////// RIGHT OBJECT RESULT HERE ////
+                String itemNameFromDropList = RightDropDownList.getSelectedItem().toString();
 
-            rightItemObject = database.returnItem(itemNameFromDropList, "conjureable");
+                rightItemObject = database.returnItem(itemNameFromDropList, "conjureable");
 
 
-            if(rightItemObject.getItemtype() == Item.ITEMTYPE.RUNE){
+                if(rightItemObject.getItemtype() == Item.ITEMTYPE.RUNE){
 
-                rightItemManaToMake.setText("Mana cost: "+rightItemObject.getManaToMake()+" // Full Bp: "+(rightItemObject.getManaToMake() * 20));
-                rightItemCharges.setText("Charges per rune: x"+(rightItemObject.getAmountOrCharges()));
-                timeToMakeRightItem.setText(calculations.timeToMakeCalculation(character, rightItemObject, false));
-                rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
+                    rightItemManaToMake.setText("Mana cost: "+rightItemObject.getManaToMake()+" // Full Bp: "+(rightItemObject.getManaToMake() * 20));
+                    rightItemCharges.setText("Charges per rune: x"+(rightItemObject.getAmountOrCharges()));
+                    timeToMakeRightItem.setText(calculations.timeToMakeCalculation(character, rightItemObject, false));
+                    rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
+
+                }
+                else if(rightItemObject.getItemtype() == Item.ITEMTYPE.DISTANCEAMMO){
+                    rightItemManaToMake.setText("Mana cost: "+rightItemObject.getManaToMake()+" // Full Bp: "+calculations.distanceAmmoBpCalc(rightItemObject));
+                    rightItemCharges.setText("Amount made: x"+(rightItemObject.getAmountOrCharges()));
+                    timeToMakeRightItem.setText(calculations.timeToMakeCalculation(character, rightItemObject, false));
+                    rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
+                }
+            }
+            else if(e.getSource() == sellableItemsDropDownList){
+                /// SELLABLE ITEMS ACTIONLISTENER HERE
+                String sellableItemNameFromDropList = sellableItemsDropDownList.getSelectedItem().toString();
+
+                sellableItemObject = database.returnItem(sellableItemNameFromDropList, "sellable");
+                valueOfSellableItem.setText("Max value: "+ sellableItemObject.getSellValue() + " gp");
+                //soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold());
+                soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold_AsString());
 
             }
-            else if(rightItemObject.getItemtype() == Item.ITEMTYPE.DISTANCEAMMO){
-                rightItemManaToMake.setText("Mana cost: "+rightItemObject.getManaToMake()+" // Full Bp: "+calculations.distanceAmmoBpCalc(rightItemObject));
-                rightItemCharges.setText("Amount made: x"+(rightItemObject.getAmountOrCharges()));
-                timeToMakeRightItem.setText(calculations.timeToMakeCalculation(character, rightItemObject, false));
-                rightBPtimeToMake.setText(calculations.timeToMakeCalculation(character, rightItemObject, true));
+            else if(e.getSource() == monsterDropDownList){
+                /// MONSTER LIST HERE
+                String monsterNameFromDropDownList = monsterDropDownList.getSelectedItem().toString();
+                monsterXMLObject = database.returnMonsterXML(monsterNameFromDropDownList);
+                //monsterName.setText("◙ Name: "+ monsterXMLObject.getName());
+                monsterHp.setText("◙ Health: "+monsterXMLObject.getHealth());
+                monsterXp.setText("◙ Experience: "+monsterXMLObject.getExperience());
+                monsterSummonCost.setText("◙ Summon cost: "+monsterXMLObject.getManaToSummon()+" ◙");
+
+                String lootTextString = "";
+                for(MonsterLootXML loot : monsterXMLObject.getLootableItems()){
+                    hejsan svejsan, här ska vi koda imorrn!!!
+                    lootTextString += "|| "+loot.getName()+" >> dropchance: "+loot.getLootChance()+"% ";
+                }
+                monsterLoot.setText(lootTextString);
+
+
             }
         }
-        else if(e.getSource() instanceof JComboBox && e.getSource() == sellableItemsDropDownList){
-            /// SELLABLE ITEMS ACTIONLISTENER HERE
-            String sellableItemNameFromDropList = sellableItemsDropDownList.getSelectedItem().toString();
-
-            sellableItemObject = database.returnItem(sellableItemNameFromDropList, "sellable");
-            valueOfSellableItem.setText("Max value: "+ sellableItemObject.getSellValue() + " gp");
-            //soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold());
-            soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold_AsString());
-
-        }
-
-
     }
     public void changeButtonBorderOnPress(JButton buttonToChange){
         //buttonToChange.setBorder(BorderFactory.createLineBorder(Color.decode("#5a2800"), 4, true));

@@ -41,7 +41,12 @@ public class Database {
         Collections.sort(sellableItemsArrayList, Comparator.comparing(Item::getName));
 
 
-
+        for(MonsterXML monster : monstersArrayList){
+            System.out.println("name: "+monster.getName()+" Loot below...");
+            for(MonsterLootXML loot : monster.getLootableItems()){
+                System.out.println("Lootname: "+loot.getName()+"Dropchance: "+loot.getLootChance());
+            }
+        }
     }
 
 
@@ -326,6 +331,7 @@ public class Database {
                         monsterXML.setHealth(nodes.item(3).getTextContent());
                         monsterXML.setExperience(nodes.item(0).getTextContent());
                         monsterXML.setManaToSummon(nodes.item(1).getTextContent());
+                        monsterXML.setName(monsterXML.getName().substring(0, 1).toUpperCase() + monsterXML.getName().substring(1));
 
                         // MONSTER LOOT (ID) AND MONSTER LOOT (DROPCHANCE%)
                         expr = xpath.compile("/monster/loot//item"); // LOOT ID NUMBER
@@ -414,18 +420,24 @@ public class Database {
     }
 
 
-    public String[] getItemListNamesAsARRAY(String conjureableORsellable){
+    public String[] getItemListNamesAsARRAY(String conjureableORsellableORmonster){
         String[] array = new String [100];
         int x = 0;
-        if(conjureableORsellable.equalsIgnoreCase("conjureable")){
+        if(conjureableORsellableORmonster.equalsIgnoreCase("conjureable")){
             for(Item item : conjureableItemsArrayList){
                 array[x] = item.getName();
                 x++;
             }
         }
-        else if(conjureableORsellable.equalsIgnoreCase("sellable")){
+        else if(conjureableORsellableORmonster.equalsIgnoreCase("sellable")){
             for(Item item : sellableItemsArrayList){
                 array[x] = item.getName();
+                x++;
+            }
+        }
+        else if(conjureableORsellableORmonster.equalsIgnoreCase("monster")){
+            for(MonsterXML monster : monstersArrayList){
+                array[x] = monster.getName();
                 x++;
             }
         }
@@ -445,6 +457,14 @@ public class Database {
                 if(itemName.equalsIgnoreCase(item.getName())){
                     return item;
                 }
+            }
+        }
+        return null;
+    }
+    public MonsterXML returnMonsterXML(String monsterName) {
+        for (MonsterXML monster : monstersArrayList) {
+            if (monsterName.equalsIgnoreCase(monster.getName())) {
+                return monster;
             }
         }
         return null;
