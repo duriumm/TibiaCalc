@@ -10,6 +10,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Duration;
@@ -37,7 +39,7 @@ public class myGUI extends JFrame implements ActionListener {
     public boolean hasPromotion;
 
 
-    JFrame frame = new JFrame("Tibia info/calculator");
+    JFrame frame = new JFrame("Duriums Tibia app :)");
     JPanel groundPanel = new JPanel();
     JPanel topVocPanel = new JPanel();
     JPanel topTextPanel = new JPanel();
@@ -71,8 +73,6 @@ public class myGUI extends JFrame implements ActionListener {
     JButton startStopXpCounterButton = new JButton("Start/Stop xp counter");
 
     JCheckBox promotedCheckBox = new JCheckBox("Has promo", false);
-
-    JTextArea testTextArea = new JTextArea(10,10);
 
     JTextField startingXpField = new JTextField("XP before hunt here", 10);
     JTextField endingXpField = new JTextField("XP after hunt here",10);
@@ -108,13 +108,15 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel monsterIcon = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Minotaur_Guard.gif")));
     JLabel monsterIcon2 = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Orc_Leader.gif")));
 
-    //JLabel monsterName = new JLabel("Monster name here");
+    JLabel monsterName = new JLabel("Monster name here");
     JLabel monsterHp = new JLabel("Monster Hp here");
     JLabel monsterXp = new JLabel("Monster XP here");
     JLabel monsterSummonCost = new JLabel("Monster summon cost here");
-    JLabel monsterLoot = new JLabel("Monster loot here");
 
+    JTable monsterLootTable = new JTable();
 
+    DefaultTableModel dtm = new DefaultTableModel(0, 0);
+    String tableColumnNames[] = new String[] { "#", "Name", "Amount", "Dropchance"};
 
     // Lägger till alla items namn i listan istället för objekt
     // behövdes för annars blev de helt cp
@@ -197,7 +199,7 @@ public class myGUI extends JFrame implements ActionListener {
         sellableItemsPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 0, 2, Color.decode("#5a2800")));
         sellableItemsPanel.add(cashIcon);
         sellableItemsPanel.add(sellableItemsDropDownList);
-        sellableItemsDropDownList.addActionListener(this); // ADD ACTIONLISTENER DOWN
+        sellableItemsDropDownList.addActionListener(this);
         sellableItemsPanel.add(cashIcon2);
 
         groundPanel.add(UNDERsellableItemsPanel);
@@ -205,10 +207,6 @@ public class myGUI extends JFrame implements ActionListener {
         UNDERsellableItemsPanel.setLayout(new GridLayout(3,4));
         UNDERsellableItemsPanel.add(valueOfSellableItem);
         UNDERsellableItemsPanel.add(soldLocationOfItem);
-        //////////////
-
-
-
 
         groundPanel.add(ABOVEexpCalculatorPanel);
         ABOVEexpCalculatorPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.decode("#5a2800")));
@@ -219,7 +217,19 @@ public class myGUI extends JFrame implements ActionListener {
         expCalculatorPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 0, 2, Color.decode("#5a2800")));
         expCalculatorPanel.setBackground(Color.decode("#fff2db"));
         expCalculatorPanel.add(startingXpField);
+        startingXpField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) { startingXpField.setText(""); }
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
         expCalculatorPanel.add(endingXpField);
+        endingXpField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) { endingXpField.setText(""); }
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
         expCalculatorPanel.add(startStopXpCounterButton);
         startStopXpCounterButton.addActionListener(this);
 
@@ -228,7 +238,7 @@ public class myGUI extends JFrame implements ActionListener {
         UNDERCalculatorPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
         UNDERCalculatorPanel.setBackground(Color.decode("#fff2db"));
 
-        ///////// CODING HERE
+
         groundPanel.add(ABOVEmonsterPanel);
         ABOVEmonsterPanel.setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.decode("#5a2800")));
         ABOVEmonsterPanel.setBackground(Color.WHITE);
@@ -246,30 +256,50 @@ public class myGUI extends JFrame implements ActionListener {
         groundPanel.add(monsterDataPanel);
         monsterDataPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, Color.decode("#5a2800")));
         monsterDataPanel.setBackground(Color.decode("#fff2db"));
-        //monsterDataPanel.add(monsterName); // DROPDOWN SHOWS NAME
+        //monsterDataPanel.add(monsterName); // DROPDOWN SHOWS NAME not needed
         monsterDataPanel.add(monsterHp);
         monsterDataPanel.add(monsterXp);
         monsterDataPanel.add(monsterSummonCost);
 
         groundPanel.add(monsterLootPanel);
         monsterLootPanel.setLayout(new FlowLayout());
-        monsterLootPanel.add(monsterLoot);
+        monsterLootPanel.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.decode("#5a2800")));
+        monsterLootPanel.setBackground(Color.decode("#fff2db"));
+        //monsterLootPanel.add(monsterLoot);
 
+        monsterLootPanel.add(monsterLootTable);
+        monsterLootTable.setPreferredScrollableViewportSize(new Dimension(350, 48));
+
+
+        dtm.setColumnIdentifiers(tableColumnNames);
+
+        monsterLootTable.setModel(dtm);
+        TableColumn col0=monsterLootTable.getColumnModel().getColumn(0);
+        col0.setPreferredWidth(1);
+
+        JScrollPane lootScrollPane = new JScrollPane((monsterLootTable));
+        monsterLootPanel.add(lootScrollPane);
 
         ///////// CODE BLOCK STOP
 
-        groundPanel.add(testTextArea);
-        testTextArea.setBorder(BorderFactory.createMatteBorder(0, 2, 3, 2, Color.decode("#5a2800")));
+        //groundPanel.add(testTextArea);
+        //testTextArea.setBorder(BorderFactory.createMatteBorder(0, 2, 3, 2, Color.decode("#5a2800")));
 
-        groundPanel.add(exitButton);
-        exitButton.setPreferredSize(new Dimension(60,25));
-        exitButton.addActionListener(this);
+        //groundPanel.add(exitButton);
+        //exitButton.setPreferredSize(new Dimension(120,25));
+        //exitButton.addActionListener(this);
 
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
+    public void focusGained(FocusEvent fe){
+        if(fe.getSource() == startingXpField){
+            startingXpField.setText("");
+        }
+    }
+
     public void actionPerformed(ActionEvent e){
         if(e.getSource() instanceof JButton){
             if(e.getSource() == exitButton){
@@ -505,19 +535,18 @@ public class myGUI extends JFrame implements ActionListener {
                 /// MONSTER LIST HERE
                 String monsterNameFromDropDownList = monsterDropDownList.getSelectedItem().toString();
                 monsterXMLObject = database.returnMonsterXML(monsterNameFromDropDownList);
-                //monsterName.setText("◙ Name: "+ monsterXMLObject.getName());
+                monsterName.setText("◙ Name: "+ monsterXMLObject.getName());
                 monsterHp.setText("◙ Health: "+monsterXMLObject.getHealth());
                 monsterXp.setText("◙ Experience: "+monsterXMLObject.getExperience());
                 monsterSummonCost.setText("◙ Summon cost: "+monsterXMLObject.getManaToSummon()+" ◙");
 
-                String lootTextString = "";
+                dtm.setRowCount(0);
+                int count = 1;
+                // forloop through every item in monsterXMLobjects loot list
                 for(MonsterLootXML loot : monsterXMLObject.getLootableItems()){
-                    hejsan svejsan, här ska vi koda imorrn!!!
-                    lootTextString += "|| "+loot.getName()+" >> dropchance: "+loot.getLootChance()+"% ";
+                    dtm.addRow(new Object[] { count, loot.getName(), loot.getAmount(), loot.getLootChance()+" %"});
+                    count++;
                 }
-                monsterLoot.setText(lootTextString);
-
-
             }
         }
     }

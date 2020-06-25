@@ -44,7 +44,7 @@ public class Database {
         for(MonsterXML monster : monstersArrayList){
             System.out.println("name: "+monster.getName()+" Loot below...");
             for(MonsterLootXML loot : monster.getLootableItems()){
-                System.out.println("Lootname: "+loot.getName()+"Dropchance: "+loot.getLootChance());
+                System.out.println("Lootname: "+loot.getName()+" Dropchance: "+loot.getLootChance());
             }
         }
     }
@@ -392,7 +392,7 @@ public class Database {
                     for(MonsterXML monster : monstersArrayList){
                         for(MonsterLootXML loot : monster.getLootableItems()){
                             if(loot.getId().equals(idFromItemXml)){
-                                loot.setName(itemNameFromItemXml);
+                                loot.setName(itemNameFromItemXml.substring(0, 1).toUpperCase() + itemNameFromItemXml.substring(1));
                             }
                         }
                     }
