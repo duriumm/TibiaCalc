@@ -94,7 +94,7 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel leftBPtimeToMake = new JLabel("Left BP time to make here");
     JLabel rightBPtimeToMake = new JLabel("Right BP time to make here");
 
-    JLabel textAboveSellableItems = new JLabel("▼ ▼ List of sellable items(best price) ▼ ▼");
+    JLabel textAboveSellableItems = new JLabel("▼ ▼ List of sellable items(best price shown only) ▼ ▼");
     JLabel cashIcon = new JLabel(new ImageIcon(this.getClass().getResource("/Pictures/gold_coin.gif")));
     JLabel cashIcon2 = new JLabel(new ImageIcon(this.getClass().getResource("/Pictures/gold_coin.gif")));
     JLabel valueOfSellableItem = new JLabel("Item value: ");
@@ -527,8 +527,7 @@ public class myGUI extends JFrame implements ActionListener {
 
                 sellableItemObject = database.returnItem(sellableItemNameFromDropList, "sellable");
                 valueOfSellableItem.setText("Max value: "+ sellableItemObject.getSellValue() + " gp");
-                //soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold());
-                soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold_AsString());
+                soldLocationOfItem.setText("Sold in: "+ sellableItemObject.getListOfWhereItemIsSold_AsString(sellableItemObject));
 
             }
             else if(e.getSource() == monsterDropDownList){
@@ -538,8 +537,10 @@ public class myGUI extends JFrame implements ActionListener {
                 monsterName.setText("◙ Name: "+ monsterXMLObject.getName());
                 monsterHp.setText("◙ Health: "+monsterXMLObject.getHealth());
                 monsterXp.setText("◙ Experience: "+monsterXMLObject.getExperience());
-                monsterSummonCost.setText("◙ Summon cost: "+monsterXMLObject.getManaToSummon()+" ◙");
 
+                int manaTest = Integer.parseInt(monsterXMLObject.getManaToSummon()); // NOT USED YET
+
+                monsterSummonCost.setText("◙ Summon cost: "+monsterXMLObject.getManaToSummon()+" ◙");
                 dtm.setRowCount(0);
                 int count = 1;
                 // forloop through every item in monsterXMLobjects loot list

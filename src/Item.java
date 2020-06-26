@@ -78,7 +78,7 @@ public class Item {
 
     }
 
-    public String getListOfWhereItemIsSold_AsString() {
+    public String getListOfWhereItemIsSold_AsString(Item itemInput) {
         String returnString = "";
         int counter = 0;
         for(Enum item : listOfWhereItemIsSold){
@@ -90,10 +90,21 @@ public class Item {
             }
 
             if(item == LOCATION_WHERE_SOLD.HARDEK_SW_THAIS && counter != listOfWhereItemIsSold.size() - 1){
-                returnString += "Hardek SW Thais, ";
+                if(itemInput.getName().equalsIgnoreCase("Viking helmet")){
+                    returnString += "Hardek, ";
+                }
+                else{
+                    returnString += "Hardek SW Thais, ";
+                }
+
             }
             else if(item == LOCATION_WHERE_SOLD.HARDEK_SW_THAIS && counter == listOfWhereItemIsSold.size() - 1){
-                returnString += "Hardek SW Thais.";
+                if(itemInput.getName().equalsIgnoreCase("Viking helmet")){
+                    returnString += "Hardek. ";
+                }
+                else{
+                    returnString += "Hardek SW Thais. ";
+                }
             }
 
             if(item == LOCATION_WHERE_SOLD.CARLIN && counter != listOfWhereItemIsSold.size() - 1){

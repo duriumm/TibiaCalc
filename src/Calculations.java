@@ -12,6 +12,7 @@ public class Calculations {
 
     }
 
+    /// NOT USED YET. START USING ///
     public String xpPerHourCalculation(int startingOfHuntXp, int endOfHuntXp){
         int totalXpGainedFromHunt = endOfHuntXp - startingOfHuntXp;
         return "";

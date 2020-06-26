@@ -41,12 +41,16 @@ public class Database {
         Collections.sort(sellableItemsArrayList, Comparator.comparing(Item::getName));
 
 
+        /// TEST PRINTING OUT ALL LOOT AFTER EVERYTHING IS ADDED INTO LISTS ETC
+        /*
         for(MonsterXML monster : monstersArrayList){
             System.out.println("name: "+monster.getName()+" Loot below...");
             for(MonsterLootXML loot : monster.getLootableItems()){
                 System.out.println("Lootname: "+loot.getName()+" Dropchance: "+loot.getLootChance());
             }
         }
+
+         */
     }
 
 
@@ -407,6 +411,8 @@ public class Database {
         } catch (SAXException saxException) {
             saxException.printStackTrace();
         }
+        /// TEST PRINTING OUT ALLL LOOOT ///
+        /*
         for(MonsterXML monster : monstersArrayList){
             System.out.println("Monster name: "+monster.getName());
             System.out.println("Health: "+monster.getHealth());
@@ -417,6 +423,8 @@ public class Database {
             }
             System.out.println("---------------------------------");
         }
+
+         */
     }
 
 
