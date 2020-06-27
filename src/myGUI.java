@@ -39,7 +39,7 @@ public class myGUI extends JFrame implements ActionListener {
     public boolean hasPromotion;
 
 
-    JFrame frame = new JFrame("Duriums Tibia app :)");
+    JFrame frame = new JFrame("Duriums Tibia app 1.1");
     JPanel groundPanel = new JPanel();
     JPanel topVocPanel = new JPanel();
     JPanel topTextPanel = new JPanel();
@@ -88,7 +88,7 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel leftItemManaToMake = new JLabel("Left manaToMake here");
     JLabel rightItemManaToMake = new JLabel("Right manaToMake here");
     JLabel leftItemCharges = new JLabel("Left itemCharges here");
-    JLabel rightItemCharges = new JLabel("Right itemValue here");
+    JLabel rightItemCharges = new JLabel("Right itemCharges here");
     JLabel timeToMakeLeftItem = new JLabel("Left itemTimeToMake here");
     JLabel timeToMakeRightItem = new JLabel("Right itemTimeToMake here");
     JLabel leftBPtimeToMake = new JLabel("Left BP time to make here");
@@ -108,10 +108,10 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel monsterIcon = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Minotaur_Guard.gif")));
     JLabel monsterIcon2 = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Orc_Leader.gif")));
 
-    JLabel monsterName = new JLabel("Monster name here");
-    JLabel monsterHp = new JLabel("Monster Hp here");
-    JLabel monsterXp = new JLabel("Monster XP here");
-    JLabel monsterSummonCost = new JLabel("Monster summon cost here");
+    //JLabel monsterName = new JLabel("Name here -- ");
+    JLabel monsterHp = new JLabel("Hp here -- ");
+    JLabel monsterXp = new JLabel("XP here --");
+    JLabel monsterSummonCost = new JLabel("Summon cost here");
 
     JTable monsterLootTable = new JTable();
 
@@ -537,7 +537,7 @@ public class myGUI extends JFrame implements ActionListener {
                 /// MONSTER LIST HERE
                 String monsterNameFromDropDownList = monsterDropDownList.getSelectedItem().toString();
                 monsterXMLObject = database.returnMonsterXML(monsterNameFromDropDownList);
-                monsterName.setText("◙ Name: "+ monsterXMLObject.getName());
+                //monsterName.setText("◙ Name: "+ monsterXMLObject.getName());                  // NOT RLY USED
                 monsterHp.setText("◙ Health: "+monsterXMLObject.getHealth());
                 monsterXp.setText("◙ Experience: "+monsterXMLObject.getExperience());
 
