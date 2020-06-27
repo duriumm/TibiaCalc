@@ -70,7 +70,7 @@ public class myGUI extends JFrame implements ActionListener {
     JButton sorcererButton = new JButton();
     JButton submitInfoButton = new JButton("Submit");
     JButton exitButton = new JButton("Exit");
-    JButton startStopXpCounterButton = new JButton("Start/Stop xp counter");
+    JButton startStopXpCounterButton = new JButton("Go!");
 
     JCheckBox promotedCheckBox = new JCheckBox("Has promo", false);
 
@@ -102,7 +102,7 @@ public class myGUI extends JFrame implements ActionListener {
 
 
     JLabel topXpGainedText = new JLabel("▼ ▼ Xp gained per hour calculator ▼ ▼");
-    JLabel xpGainedPerHourLabel = new JLabel("XP gain / hour calculated");
+    JLabel xpGainedPerHourLabel = new JLabel("Press Go! button -> to start/stop xp calculator :)");
 
     JLabel textAboveMonsterPanel = new JLabel("▼ ▼ Monsters panel ▼ ▼");
     JLabel monsterIcon = new JLabel(new ImageIcon(this.getClass().getResource("Pictures/Minotaur_Guard.gif")));
@@ -231,6 +231,7 @@ public class myGUI extends JFrame implements ActionListener {
             public void focusLost(FocusEvent e) {}
         });
         expCalculatorPanel.add(startStopXpCounterButton);
+        startStopXpCounterButton.setPreferredSize(new Dimension(80,20));
         startStopXpCounterButton.addActionListener(this);
 
         groundPanel.add(UNDERCalculatorPanel);
@@ -376,7 +377,6 @@ public class myGUI extends JFrame implements ActionListener {
                     xpCounterIsActive = true;
                 }
                 else if(xpCounterIsActive == true){
-
                     endOfHuntTime = Instant.now();
 
                     ////
