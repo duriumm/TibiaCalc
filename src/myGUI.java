@@ -366,7 +366,6 @@ public class myGUI extends JFrame implements ActionListener {
                 System.out.println("Character: "+character.getVocationName()+"\nPromotion status: "+character.getPromotionStatus());
             }
             else if(e.getSource() == startStopXpCounterButton && startingXpField.getText() != null){
-
                 if(xpCounterIsActive == false){
                     ///////// THIS IS WHERE WE ARE IN THE CODE
                     //////// ENTER CP CALCULATOR INTO APP
@@ -376,9 +375,11 @@ public class myGUI extends JFrame implements ActionListener {
                     System.out.println("Showing Starting time as instant: "+startOfHuntTime);
                     xpCounterIsActive = true;
                 }
-                else{
+                else if(xpCounterIsActive == true){
 
                     endOfHuntTime = Instant.now();
+
+                    ////
                     System.out.println("showing ENDING time as instant: "+endOfHuntTime);
                     long timeElapsed = Duration.between(startOfHuntTime, endOfHuntTime).toMillis();
                     System.out.println("Testprint of instant elapsed time as millis: "+timeElapsed);
@@ -388,16 +389,18 @@ public class myGUI extends JFrame implements ActionListener {
                     System.out.println("Test with MINUTES timeunit thingy: "+minutes);
                     long hours = TimeUnit.MILLISECONDS.toHours(timeElapsed);
                     System.out.println("Test with HOURS timeunit thingy: "+hours);
+                    ////
 
                     // HITTILSS ÄR ALLT BRA OCH JAG HAR SEKUNDERNA SAMT MINUTERNA SOM LONG
 
-
+                    System.out.println("1111");
                     int xpAfterHunt = Integer.parseInt(endingXpField.getText());
+
                     int xpBeforeHunt = Integer.parseInt(startingXpField.getText());
                     int xpGainedOnHunt = xpAfterHunt - xpBeforeHunt;
                     System.out.println("Total xp gained on hunt: "+xpGainedOnHunt);
 
-                    //minutes = 1; // TEST WITH MANUAL MINUTES INPUT
+                    //minutes = 60; // TEST WITH MANUAL MINUTES INPUT
 
                     float hoursAsDouble = (float) minutes / 60;
                     System.out.println("Test with HOURS double: "+hoursAsDouble);

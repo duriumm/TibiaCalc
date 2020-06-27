@@ -73,7 +73,7 @@ public class Database {
 
         Item arrow = new Item("Arrow", Item.ITEMTYPE.DISTANCEAMMO, 40, 15, 25);
         Item bolt = new Item("Bolt", Item.ITEMTYPE.DISTANCEAMMO, 70, 10, 30);
-        Item explosiveArrow = new Item("Explosive Arrow", Item.ITEMTYPE.DISTANCEAMMO, 120, 5);
+        Item burstArrow = new Item("Burst Arrow", Item.ITEMTYPE.DISTANCEAMMO, 120, 5);
 
         conjureableItemsArrayList.add(hmm);
         conjureableItemsArrayList.add(gfb);
@@ -89,7 +89,7 @@ public class Database {
 
         conjureableItemsArrayList.add(arrow);
         conjureableItemsArrayList.add(bolt);
-        conjureableItemsArrayList.add(explosiveArrow);
+        conjureableItemsArrayList.add(burstArrow);
     }
 
     public void AddHELMETSAndSoldLocations(){
@@ -429,7 +429,7 @@ public class Database {
 
 
     public String[] getItemListNamesAsARRAY(String conjureableORsellableORmonster){
-        String[] array = new String [100];
+        String[] array = new String [200];
         int x = 0;
         if(conjureableORsellableORmonster.equalsIgnoreCase("conjureable")){
             for(Item item : conjureableItemsArrayList){
