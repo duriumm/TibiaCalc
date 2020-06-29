@@ -37,6 +37,8 @@ public class Database {
         ReadItemXMLfile();
 
 
+
+
         Collections.sort(conjureableItemsArrayList, Comparator.comparing(Item::getName));
         Collections.sort(sellableItemsArrayList, Comparator.comparing(Item::getName));
 
@@ -311,11 +313,14 @@ public class Database {
 
     public void ReadMonsterXMLfiles(){
         try{
-            File dir = new File("src\\MonstersXML");
-            if (dir.exists() && dir.isDirectory()) {
-                File [] files = dir.listFiles((d, name) -> name.endsWith(".xml"));
+
+            File monsterXMLdir = new File("MonsterXML");        // UNCOMMENCT TO USE RELEASE DIR
+            //File monsterXMLdir = new File("resources\\MonsterXML");       // UNCOMMENT TO USE CODING DIR
+            if (monsterXMLdir.exists() && monsterXMLdir.isDirectory()) {
+                File [] files = monsterXMLdir.listFiles((d, name) -> name.endsWith(".xml"));
                 if (files != null) {
                     for (File file: files) {
+                        System.out.println("MonsterFile path: "+file.getPath());
 
                         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                         factory.setNamespaceAware(true); // never forget this!
@@ -330,11 +335,18 @@ public class Database {
                         NodeList nodes = (NodeList) result;
 
                         MonsterXML monsterXML = new MonsterXML();
-
                         monsterXML.setName(nodes.item(2).getTextContent());
+                        System.out.println("Monster name test: "+nodes.item(2).getTextContent());
+
+
                         monsterXML.setHealth(nodes.item(3).getTextContent());
+                        System.out.println("Monster health test: "+nodes.item(3).getTextContent());
+
                         monsterXML.setExperience(nodes.item(0).getTextContent());
+                        System.out.println("Monster XP test: "+nodes.item(0).getTextContent());
+
                         monsterXML.setManaToSummon(nodes.item(1).getTextContent());
+                        System.out.println("Monster Mana test: "+nodes.item(1).getTextContent());
                         monsterXML.setName(monsterXML.getName().substring(0, 1).toUpperCase() + monsterXML.getName().substring(1));
 
                         // MONSTER LOOT (ID) AND MONSTER LOOT (DROPCHANCE%)
@@ -371,12 +383,15 @@ public class Database {
     }
     public void ReadItemXMLfile(){
         try{
-            String fileName = "src\\ItemsXML\\items.xml";
+            //String fileName = "resources\\ItemsXML\\items.xml";
+
+            File itemXMLfile = new File("ItemsXML\\items.xml");                         // COMMENT OUT TO USE RELEASE FILE
+            //File itemXMLfile = new File("resources\\ItemsXML\\items.xml");    // COMMENT OUT TO USE CODING FILE
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setNamespaceAware(true); // never forget this!
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(fileName);
+            Document doc = builder.parse(itemXMLfile);
 
             XPathFactory xpathfactory = XPathFactory.newInstance();
             XPath xpath = xpathfactory.newXPath();
@@ -384,6 +399,8 @@ public class Database {
             XPathExpression expr = xpath.compile("/items/item"); // LOOT ID NUMBER
             Object result = expr.evaluate(doc, XPathConstants.NODESET);
             NodeList nodes = (NodeList) result;
+
+            System.out.println("ItemXML path: "+itemXMLfile.getPath());
 
             for (int i = 0; i < nodes.getLength(); i++) { // LENGTH ÄR BARA 1 HÄR wtf??
                 Node testNode = nodes.item(i);

@@ -136,7 +136,6 @@ public class myGUI extends JFrame implements ActionListener {
     JLabel emptyLabel = new JLabel("");
 
     myGUI() throws IOException, ParserConfigurationException, SAXException {
-
         frame.setLocation(5,10);
         frame.setPreferredSize(new Dimension(420,800));
         frame.setResizable(true);
@@ -549,6 +548,10 @@ public class myGUI extends JFrame implements ActionListener {
                 // forloop through every item in monsterXMLobjects loot list
                 for(MonsterLootXML loot : monsterXMLObject.getLootableItems()){
                     dtm.addRow(new Object[] { count, loot.getName(), loot.getAmount(), loot.getLootChance()+" %"});
+                    System.out.println("Count # test in GUI: "+count);
+                    System.out.println("Loot name test in GUI: "+loot.getName());
+                    System.out.println("amount test in GUI: "+loot.getAmount());
+                    System.out.println("Dropchance test in GUI: "+loot.getLootChance());
                     count++;
                 }
             }
