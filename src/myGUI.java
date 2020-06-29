@@ -77,22 +77,22 @@ public class myGUI extends JFrame implements ActionListener {
     JTextField startingXpField = new JTextField("XP before hunt here", 10);
     JTextField endingXpField = new JTextField("XP after hunt here",10);
 
-    JLabel vocationLabel = new JLabel("...", SwingConstants.CENTER); // NICE
-    JLabel hpPerSecLabel = new JLabel("hp/s here"); // NICE
-    JLabel hpPerMINLabel = new JLabel("hp/min here"); // NICE
-    JLabel manaPerSecLabel = new JLabel("mana/sec here"); // NICE
-    JLabel manaPerMINLabel = new JLabel("mana/min here"); // NICE
+    JLabel vocationLabel = new JLabel("-- Vocation --", SwingConstants.CENTER); // NICE
+    JLabel hpPerSecLabel = new JLabel("Hp/s:"); // NICE
+    JLabel hpPerMINLabel = new JLabel("Hp/min:"); // NICE
+    JLabel manaPerSecLabel = new JLabel("Mana/sec:"); // NICE
+    JLabel manaPerMINLabel = new JLabel("Mana/min:"); // NICE
 
     JLabel spellsComparisonText = new JLabel("▼ ▼ Compare conjuration spells (runes/arrows/bolts) ▼ ▼");
 
-    JLabel leftItemManaToMake = new JLabel("Left manaToMake here");
-    JLabel rightItemManaToMake = new JLabel("Right manaToMake here");
-    JLabel leftItemCharges = new JLabel("Left itemCharges here");
-    JLabel rightItemCharges = new JLabel("Right itemCharges here");
-    JLabel timeToMakeLeftItem = new JLabel("Left itemTimeToMake here");
-    JLabel timeToMakeRightItem = new JLabel("Right itemTimeToMake here");
-    JLabel leftBPtimeToMake = new JLabel("Left BP time to make here");
-    JLabel rightBPtimeToMake = new JLabel("Right BP time to make here");
+    JLabel leftItemManaToMake = new JLabel("Mana cost:");
+    JLabel rightItemManaToMake = new JLabel("Mana cost:");
+    JLabel leftItemCharges = new JLabel("Amount/Charges:");
+    JLabel rightItemCharges = new JLabel("Amount/Charges:");
+    JLabel timeToMakeLeftItem = new JLabel("Time to make:");
+    JLabel timeToMakeRightItem = new JLabel("Time to make:");
+    JLabel leftBPtimeToMake = new JLabel("Time to make a full BP:");
+    JLabel rightBPtimeToMake = new JLabel("Time to make a full BP:");
 
     JLabel textAboveSellableItems = new JLabel("▼ ▼ List of sellable items(best price shown only) ▼ ▼");
     JLabel cashIcon = new JLabel(new ImageIcon(this.getClass().getResource("/Pictures/gold_coin.gif")));
@@ -132,7 +132,7 @@ public class myGUI extends JFrame implements ActionListener {
 
     JComboBox monsterDropDownList = new JComboBox(monsterItemList);
 
-    JLabel topText = new JLabel("Enter information below ");
+    JLabel topText = new JLabel("Enter vocation below ");
     JLabel emptyLabel = new JLabel("");
 
     myGUI() throws IOException, ParserConfigurationException, SAXException {
