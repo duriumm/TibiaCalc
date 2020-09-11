@@ -6,3 +6,14 @@ Here are some progress pictures of the journey :)
 
 
 ![alt text](https://i.imgur.com/10loMqu.jpeg)
+
+![alt text](https://i.imgur.com/FgwXzqm.png)
+
+![alt text](https://i.imgur.com/g9u4Vvy.jpg)
+
+![alt text](https://i.imgur.com/9e5qxEd.jpg)
+
+![alt text](https://i.imgur.com/10loMqu.jpeg)
+
+
+
