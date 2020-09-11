@@ -4,7 +4,6 @@ It contains useful information to make it available to look up things during gam
 Here are some progress pictures of the journey :)
 
 
-
 ![alt text](https://i.imgur.com/10loMqu.jpeg)
 
 ![alt text](https://i.imgur.com/FgwXzqm.png)
@@ -14,6 +13,8 @@ Here are some progress pictures of the journey :)
 ![alt text](https://i.imgur.com/9e5qxEd.jpg)
 
 ![alt text](https://i.imgur.com/0Qp3FTz.jpg)
+
+![alt text](https://i.imgur.com/l2Z9qR4.png)
 
 
 
