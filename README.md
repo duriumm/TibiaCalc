@@ -5,4 +5,4 @@ Here are some progress pictures of the journey :)
 
 
 
-![alt text](https://ibb.co/yYSfRrs)
+![alt text](https://i.imgur.com/10loMqu.jpeg)
