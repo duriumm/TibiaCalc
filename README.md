@@ -13,7 +13,7 @@ Here are some progress pictures of the journey :)
 
 ![alt text](https://i.imgur.com/9e5qxEd.jpg)
 
-![alt text](https://i.imgur.com/10loMqu.jpeg)
+![alt text](https://i.imgur.com/0Qp3FTz.jpg)
 
 
 
